@@ -37,3 +37,4 @@ quit or EOF
 help or help <command> Ex: help or help quit
 
 Additionally, the console supports <class name>.<command>(<parameters>) syntax. Ex: City.show(my_city_id)
+git@github.com:Samuel-Makinde/AirBnB_clone_v2.git
