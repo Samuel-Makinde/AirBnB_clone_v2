@@ -1,18 +1,20 @@
 #!/usr/bin/python3
-""" Function that compress a folder """
-from datetime import datetime
+"""
+Create a tarball containing the contents of web_static
+"""
+
+from os.path import isfile, join
+from shlex import quote
+from time import strftime
 from fabric.api import local
-import os
 
 
 def do_pack():
-    try:
-        if not os.path.exists("versions"):
-            local('mkdir versions')
-        t = datetime.now()
-        f = "%Y%m%d%H%M%S"
-        archive_path = 'versions/web_static_{}.tgz'.format(t.strftime(f))
-        local('tar -cvzf {} web_static'.format(archive_path))
-        return archive_path
-    except:
-        return None
+    """
+    Archive the contents of web_static
+    """
+    now = strftime('%Y%m%d%H%M%S')
+    tgz = join('versions', 'web_static_{}.tgz'.format(now))
+    local('mkdir -p versions')
+    local('tar -czf {} web_static'.format(quote(tgz)))
+    return tgz if isfile(tgz) else None
